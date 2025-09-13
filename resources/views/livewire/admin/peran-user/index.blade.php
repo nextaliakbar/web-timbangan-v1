@@ -11,6 +11,7 @@
                     </div>
                     <div class="card-body">
                         <form wire:submit.prevent="storeOrUpdate">
+                            @csrf
                             <div class="form-group">
                                 <label>Nama Peran</label>
                                 <input wire:model="role" type="text" class="form-control 

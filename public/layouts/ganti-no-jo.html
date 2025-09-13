@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Ganti No. JO</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <style>
+    /* Custom styles for responsiveness and layout */
+    .action-buttons .btn {
+      margin-right: 5px;
+    }
+
+    @media (max-width: 767.98px) {
+      .content-header .row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .content-header .col-sm-6 {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .card-filters {
+        flex-direction: column;
+        align-items: stretch !important;
+      }
+      .card-filters > * {
+        margin-bottom: 10px;
+      }
+       .card-filters .input-group, .card-filters .form-control {
+        width: 100% !important;
+      }
+      .card-filters .ml-auto {
+        margin-left: 0 !important;
+      }
+      .card-filters .d-flex {
+        flex-direction: column;
+        width: 100%;
+      }
+      .card-filters .mr-2 {
+          margin-right: 0 !important;
+          margin-bottom: 10px;
+      }
+      .pagination-container {
+          flex-direction: column;
+          align-items: center;
+      }
+      .pagination-container p {
+          margin-bottom: 1rem;
+      }
+    }
+  </style>
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mr-2">
+          <a href="#" class="btn btn-primary"><i class="fas fa-rocket mr-2"></i>Masuk Ke Aplikasi Timbangan</a>
+      </li>
+      <!-- User Account Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-user-circle fa-lg"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">Admin User</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-user mr-2"></i> Profil
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-sign-out-alt mr-2"></i> Keluar
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <span class="brand-text font-weight-light">Weight Application</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-user-shield"></i><p>Peran User</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-users"></i><p>User Timbangan</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-hands-helping"></i><p>Serah Terima</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-balance-scale"></i><p>Timbangan</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link active"><i class="nav-icon fas fa-exchange-alt"></i><p>Ganti JO</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-flask"></i><p>Formula</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-boxes"></i><p>Kartu Stok</p></a></li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Laporan Hasil Input di Lapangan <span class="badge bg-primary">Plant MGFI</span></h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Daftar JO <span class="badge bg-secondary">5821</span></h3>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 card-filters">
+              <div class="d-flex align-items-center">
+                  <i class="fas fa-info-circle mr-2"></i>
+                  <select class="form-control form-control-sm" style="width: auto;">
+                      <option>2 Bulan Terakhir</option>
+                      <option>1 Bulan Terakhir</option>
+                      <option>1 Minggu Terakhir</option>
+                  </select>
+              </div>
+              <div class="d-flex align-items-center ml-auto">
+                  <select class="form-control form-control-sm mr-2" style="width: auto;">
+                      <option>10</option>
+                      <option>25</option>
+                      <option>50</option>
+                  </select>
+                  <div class="input-group input-group-sm" style="width: 250px;">
+                      <input type="text" name="table_search" class="form-control" placeholder="Cari berdasarkan id barang...">
+                      <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>WAKTU</th>
+                    <th>ID BARANG</th>
+                    <th>NAMA BARANG</th>
+                    <th>BERAT</th>
+                    <th>UNIQ ID</th>
+                    <th>NO JO</th>
+                    <th><i class="fas fa-cog"></i></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>2025-08-15 16:25</td>
+                    <td>0103120000018</td>
+                    <td>Bs Robin</td>
+                    <td>3.86 KG</td>
+                    <td>UNIMOS/L/69/WFR-NDM/VII/(25.)46801</td>
+                    <td><span class="badge bg-danger">Tidak Tersedia</span></td>
+                    <td class="action-buttons">
+                      <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>2025-08-15 16:23</td>
+                    <td>0103120000014</td>
+                    <td>Bs Tali Pengikat</td>
+                    <td>0.45 KG</td>
+                    <td>UNIMOS/L/69/WFR-NDM/VII/(25.)46801</td>
+                    <td>JOD2012508-0005RTABCDEFG</td>
+                    <td class="action-buttons">
+                      <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                    </td>
+                  </tr>
+                  <!-- More data rows as needed -->
+                </tbody>
+              </table>
+            </div>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-between align-items-center mt-3 pagination-container">
+                <p>Showing 1 to 10 of 5821 results</p>
+                <ul class="pagination pagination-sm m-0">
+                    <li class="page-item"><a class="page-link" href="#">«</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">583</a></li>
+                    <li class="page-item"><a class="page-link" href="#">»</a></li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Modal Edit -->
+  <div class="modal fade" id="modal-edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h4 class="modal-title">Perbarui No. JO</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>ID Barang</label><input type="text" class="form-control" value="0103120000018" readonly></div>
+                <div class="form-group"><label>Nama Barang</label><input type="text" class="form-control" value="Bs Robin" readonly></div>
+                <div class="form-group"><label>Uniq ID</label><input type="text" class="form-control" value="UNIMOS/L/69/WFR-NDM/VII/(25.)46801" readonly></div>
+                <div class="form-group"><label for="no_jo_input">No. JO</label><input type="text" class="form-control" id="no_jo_input" placeholder="Masukkan No. JO baru"></div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="updateData">Perbarui</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block"><b>Version</b> 3.2.0</div>
+    <strong>Copyright &copy; 2025 <a href="#">Your Company</a>.</strong> All rights reserved.
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/js/adminlte.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$(function() {
+    $('#updateData').on('click', function() {
+        $('#modal-edit').modal('hide');
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses',
+            text: 'No. JO berhasil diperbarui!',
+            timer: 2500,
+            showConfirmButton: true
+        });
+    });
+});
+</script>
+
+</body>
+</html>

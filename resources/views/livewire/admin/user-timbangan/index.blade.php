@@ -151,6 +151,72 @@
                     icon: evt.icon
                 });
             });
+
+            $wire.on('alertDestinationError', (evt)=> {
+                Swal.fire({
+                    title: evt.title,
+                    text: evt.text,
+                    icon: evt.icon
+                });
+            });
+
+            document.addEventListener('livewire:initialized', ()=> {
+            let selectTujuanCreate = $('#select-tujuan-create').select2({
+                theme:'bootstrap4',
+            });
+
+            let selectTujuanEdit = $('#select-tujuan-edit').select2({
+                theme: 'bootstrap4'
+            });
+
+            $('#select-tujuan-create').on('change', function() {
+                let data = $(this).val();
+
+                @this.set('tujuan', data); 
+            });
+
+            $('#select-tujuan-edit').on('change', function() {
+                let data = $(this).val();
+
+                @this.set('tujuan', data);
+            });
+            
+            @this.on('loadDataDariKeCreate', (event) => {
+                const data = event.data;
+
+                selectTujuanCreate.empty();
+
+                data.forEach(item => {
+                    let newOption = new Option(item.DARI_KE, item.KODE, false, false);
+                    
+                    selectTujuanCreate.append(newOption);
+                });
+
+                selectTujuanCreate.trigger('change');
+            });
+
+            @this.on('loadDataDariKeEdit', (event)=> {
+                const data = event.data;
+                const destinations = event.destination;
+
+                selectTujuanEdit.empty();
+
+                data.forEach(item => {
+                    let newOption = new Option(item.DARI_KE, item.KODE, false, false);
+                    selectTujuanEdit.append(newOption);
+                });
+                selectTujuanEdit.val(destinations);
+                selectTujuanEdit.trigger('change');
+            });
+        });
+
+        document.querySelector('button[wire\\:click="create"]').addEventListener('click', function() {
+            let selectTujuanCreate = $('#select-tujuan-create').select2({
+                theme:'bootstrap4',
+            });
+
+            selectTujuanCreate.empty();
+        });
         </script>
     @endscript
     </div>

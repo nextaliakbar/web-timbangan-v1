@@ -10,8 +10,9 @@ class PushDaftarBarang extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'push_daftar_barang';
-
+    protected $table = 'push_daftar_barang_temp';
+    protected $primaryKey = "Id";
+    public $timestamps = false;
     protected $fillable = [
         'Id', 'ID_BARANG', 'ID_SUNFISH',
         'NAMA_BARANG', 'itemCategoryType',
@@ -20,5 +21,4 @@ class PushDaftarBarang extends Model
         'FLAG_MGFI', 'STATUS', 'INACTIVE'
     ];
 
-    public $timestamps = false;
 }

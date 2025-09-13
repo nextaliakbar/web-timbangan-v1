@@ -14,8 +14,9 @@ class RedirectIfAuthenticated
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $guard = null): Response
+    public function handle(Request $request, Closure $next): Response
     {
+        $guard = session('guest', 'admin');
         switch($guard) {
             case 'admin':
                 if(Auth::guard($guard)->check()) {
@@ -41,6 +42,12 @@ class RedirectIfAuthenticated
                     }
                 }
                 
+            break;
+
+            case 'user':
+                if(Auth::guard($guard)->check()) {
+                    return redirect()->route('main-app.index');
+                }
             break;
 
             default:

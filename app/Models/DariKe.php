@@ -10,13 +10,15 @@ class DariKe extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'tb_destination';
+    protected $table = 'dari_ke_temp';
+
+    protected $primaryKey = "Id";
 
     public $timestamps = false;
 
     public $fillable = [
         'Id', 'DARI_KE', 'KODE',
-        'DARI', 'KE', 'PLANT'
+        'DARI', 'KE', 'DG_JO','PLANT'
     ];
 
 }

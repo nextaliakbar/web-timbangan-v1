@@ -1,19 +1,25 @@
 <?php
 
+use App\Http\Controllers\MainAppController;
+use App\Http\Controllers\UserTimbanganController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
     return view('layouts.auth.index');
-})->name('login')->middleware('guest:admin');
+})
+->name('login')
+->middleware('guest');
 
-Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function() {
-    
+Route::middleware('admin')
+->prefix('admin')
+->name('admin.')
+->group(function() {
     Route::get('/peran-user', function() {
         return view('layouts.admin.peran-user.index');
     })
     ->name('peran-user')
     ->middleware('module:Peran User');
-    
+
     Route::get('/user-timbangan', function(){
         return view('layouts.admin.user-timbangan.index');
     })
@@ -60,3 +66,20 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function() 
     ->name('kartu-stok')
     ->middleware('module:Kartu Stok');
 });
+
+Route::middleware('user')
+->prefix('main-app')
+->name('main-app.')
+->group(function() {
+    Route::get('/', function() {
+        return view('layouts.main.index');
+    })
+    ->name('index');
+
+    Route::get('/search-item', [MainAppController::class, 'searchItem'])
+    ->name('search-item');
+
+    Route::get('/print-invoice', [MainAppController::class, 'printInvc'])
+    ->name('print-invc');
+});
+

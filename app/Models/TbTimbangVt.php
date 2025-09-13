@@ -10,8 +10,9 @@ class TbTimbangVt extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'tb_timbang_vt';
-
+    protected $table = 'tb_timbang_vt_temp';
+    protected $primaryKey = "ID";
+    public $timestamps = false;
     protected $fillable = [
         'ID', 'NO_DOK', 'NO_LOT',
         'ITEM_CODE', 'BERAT', 'BERAT_FILTER',
@@ -21,5 +22,4 @@ class TbTimbangVt extends Model
         'SHIFT_PROD', 'PLANT', 'BERAT_PER_LOT'
     ];
 
-    public $timestamps = false;
 }

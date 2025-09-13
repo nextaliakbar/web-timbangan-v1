@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class JoTimbang extends Model
 {
-    protected $table = 'jo_timbang';
+    protected $table = 'jo_timbang_temp';
 
+    protected $primaryKey = "Id";
+    public $timestamps = false;
     protected $fillable = [
         'Id', 'NO_JO', 'UNIQ_ID',
         'ID_BARANG', 'BERAT_TOTAL',
@@ -16,5 +18,4 @@ class JoTimbang extends Model
         'TGL_GANTI_NO_JO'
     ];
     
-    public $timestamps = false;
 }

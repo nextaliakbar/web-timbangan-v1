@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CheckModuleAccess;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\UserMiddleware;
@@ -15,7 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'admin' => UserMiddleware::class,
+            'admin' => AdminMiddleware::class,
+            'user' => UserMiddleware::class,
             'guest' => RedirectIfAuthenticated::class,
             'module' => CheckModuleAccess::class
         ]);

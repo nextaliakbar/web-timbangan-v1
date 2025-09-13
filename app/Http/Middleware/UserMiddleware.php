@@ -16,18 +16,16 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
-        if (!Auth::guard('admin')->check()) {
+        if(!Auth::guard('user')->check()) {
             return redirect()->route('login');
         }
 
-        $user = Auth::guard('admin')->user();
-
-        if ($user->userEsaRole && !$user->userEsaRole->status) {
+        $userEsa = Auth::guard('user')->user();
+        if ($userEsa->userEsaRole && !$userEsa->userEsaRole->status) {
             Auth::guard('admin')->logout();
-            return redirect()->route('login')->with('error', 'Akun Anda tidak aktif.');
+            return redirect()->route('login')->with('error', 'Akun anda tidak aktif.');
         }
-        
+
         return $next($request);
     }
 }

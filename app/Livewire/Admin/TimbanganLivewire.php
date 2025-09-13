@@ -87,8 +87,8 @@ class TimbanganLivewire extends Component
 
     public function update()
     {
-        $sql = "UPDATE tb_timbang_1 t
-        LEFT JOIN jo_timbang j on t.UNIQ_ID=j.UNIQ_ID and t.IDX_TB=j.IDX_TB
+        $sql = "UPDATE tb_timbang_temp t
+        LEFT JOIN jo_timbang_temp j on t.UNIQ_ID=j.UNIQ_ID and t.IDX_TB=j.IDX_TB
         SET 
         t.ID_BARANG = ?, 
         t.QTY = ?,

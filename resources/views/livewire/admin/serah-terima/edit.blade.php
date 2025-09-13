@@ -13,6 +13,7 @@
             </button>
         </div>
         <form wire:submit.prevent="update">
+        @csrf
         <div class="modal-body">
             <div class="form-group">
                 <label for="uniqId">UNIQ ID</label>
@@ -36,7 +37,7 @@
                 @error('picTerima')
                     <span class="text-danger">{{$message}}</span>
                 @enderror
-            </div>
+          /div>
         </div>
 
         <div class="modal-footer">

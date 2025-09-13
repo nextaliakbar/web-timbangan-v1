@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Halaman User Timbangan</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <style>
+    /* Custom styles for responsiveness */
+    .action-buttons .btn {
+        margin-right: 5px;
+    }
+    .badge-tidak-tersedia {
+        background-color: #dc3545;
+        color: white;
+    }
+    @media (max-width: 768px) {
+      .main-header .btn {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.5rem;
+      }
+      .content-header h1 {
+        font-size: 1.5rem;
+      }
+      .card-tools {
+        width: 100%;
+        margin-top: 10px;
+      }
+       .card-tools .input-group {
+        width: 100% !important;
+      }
+    }
+  </style>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mr-2">
+          <a href="#" class="btn btn-primary"><i class="fas fa-rocket mr-2"></i>Masuk Ke Aplikasi Timbangan</a>
+      </li>
+      <!-- User Account Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-user-circle fa-lg"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">Admin User</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-user mr-2"></i> Profil
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-sign-out-alt mr-2"></i> Keluar
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <span class="brand-text font-weight-light">Weight Application</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-shield"></i>
+              <p>Peran User</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-users"></i>
+              <p>User Timbangan</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-hands-helping"></i>
+              <p>Serah Terima</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-balance-scale"></i>
+              <p>Timbangan</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-exchange-alt"></i>
+              <p>Ganti JO</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-flask"></i>
+              <p>Formula</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-boxes"></i>
+              <p>Kartu Stok</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>User Timbangan <span class="badge bg-secondary">212</span></h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">User Timbangan</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah">
+                  <i class="fas fa-plus"></i> Tambah
+                </button>
+
+                <div class="card-tools d-flex align-items-center">
+                    <select class="form-control-sm mr-2">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                    <div class="input-group" style="width: 250px;">
+                        <input type="text" name="table_search" class="form-control" placeholder="Cari berdasarkan nik, nama">
+                        <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>NIK</th>
+                      <th>NAMA USER</th>
+                      <th>PLANT</th>
+                      <th>PIC</th>
+                      <th>BAGIAN</th>
+                      <th>PROGRAM</th>
+                      <th>DEPARTMENT</th>
+                      <th>HAK</th>
+                      <th><i class="fas fa-cog"></i></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>MGF00100151</td>
+                      <td>Siti Khomariyah</td>
+                      <td>MGFI</td>
+                      <td>PIC_SERAH</td>
+                      <td>PREPARATION</td>
+                      <td>Desktop & Web</td>
+                      <td>RnD</td>
+                      <td>ADMIN</td>
+                      <td class="action-buttons">
+                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>MGF08090268</td>
+                      <td>Fitria Mardhani</td>
+                      <td>MGFI</td>
+                      <td><span class="badge badge-tidak-tersedia">Tidak Tersedia</span></td>
+                      <td><span class="badge badge-tidak-tersedia">Tidak Tersedia</span></td>
+                      <td><span class="badge badge-tidak-tersedia">Tidak Tersedia</span></td>
+                      <td>RnD</td>
+                      <td><span class="badge badge-tidak-tersedia">Tidak Tersedia</span></td>
+                      <td class="action-buttons">
+                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>MGF08110005</td>
+                      <td>Nur Yahya Ubet</td>
+                      <td>MGFI</td>
+                      <td>PIC_TERIMA</td>
+                      <td>QUALITY ASSURANCE</td>
+                      <td>Desktop</td>
+                      <td>QA</td>
+                      <td>USER</td>
+                       <td class="action-buttons">
+                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <p class="float-left">Showing 1 to 10 of 212 results</p>
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">...</a></li>
+                  <li class="page-item"><a class="page-link" href="#">22</a></li>
+                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Modal Tambah Data User -->
+  <div class="modal fade" id="modal-tambah">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tambah Data User</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"><label>NIK</label><input type="text" class="form-control"></div>
+                    <div class="form-group"><label>User</label><input type="text" class="form-control"></div>
+                    <div class="form-group"><label>Pilih PIC</label><select class="form-control"><option>-- Pilih PIC --</option></select></div>
+                    <div class="form-group"><label>Pilih Tempat</label><select class="form-control"><option>-- Pilih PT --</option></select></div>
+                    <div class="form-group"><label>Pilih Departemen</label><select class="form-control"><option>-- Pilih Departemen --</option></select></div>
+                    <div class="form-group"><label>Pilih Bagian</label><select class="form-control"><option>-- Pilih Bagian --</option></select></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group"><label>Pilih Program</label><select class="form-control"><option>-- Pilih Program --</option></select></div>
+                    <div class="form-group"><label>Pilih Hak</label><select class="form-control"><option>-- Pilih Hak --</option></select></div>
+                    <div class="form-group"><label>Password Login</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Konfirmasi Password Login</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Password Serah / Terima</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Konfirmasi Password Serah / Terima</label><input type="password" class="form-control"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+          <button type="button" class="btn btn-primary" id="simpanData"><i class="fas fa-save"></i> Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Data User -->
+    <div class="modal fade" id="modal-edit">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Perbarui Data User</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"><label>NIK</label><input type="text" class="form-control" value="MGF00100151" readonly></div>
+                    <div class="form-group"><label>User</label><input type="text" class="form-control" value="Siti Khomariyah"></div>
+                    <div class="form-group"><label>Pilih PIC</label><select class="form-control"><option>PIC Serah</option></select></div>
+                    <div class="form-group"><label>Pilih Tempat</label><select class="form-control"><option>PT. MGFI</option></select></div>
+                    <div class="form-group"><label>Pilih Departemen</label><select class="form-control"><option>RnD</option></select></div>
+                    <div class="form-group"><label>Pilih Bagian</label><select class="form-control"><option>PREPARATION</option></select></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group"><label>Pilih Program</label><select class="form-control"><option>Desktop & Web</option></select></div>
+                    <div class="form-group"><label>Pilih Hak</label><select class="form-control"><option>ADMIN</option></select></div>
+                    <div class="form-group"><label>Password Login</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Konfirmasi Password Login</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Password Serah / Terima</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Konfirmasi Password Serah / Terima</label><input type="password" class="form-control"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+          <button type="button" class="btn btn-primary" id="updateData"><i class="fas fa-save"></i> Perbarui</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Hapus Data User -->
+  <div class="modal fade" id="modal-hapus">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Hapus Data User</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p><strong>NIK:</strong> MGF00100151</p>
+            <p><strong>Nama:</strong> Siti Khomariyah</p>
+            <p><strong>PLANT:</strong> MGFI</p>
+            <p><strong>PIC:</strong> PIC_SERAH</p>
+            <p><strong>HAK:</strong> ADMIN</p>
+            <hr/>
+            <p>Apakah Anda yakin ingin menghapus data ini?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+          <button type="button" class="btn btn-danger" id="hapusData"><i class="fas fa-trash"></i> Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 3.2.0
+    </div>
+    <strong>Copyright &copy; 2025 <a href="#">Your Company</a>.</strong> All rights reserved.
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/js/adminlte.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$(function() {
+    // Fungsi untuk menampilkan notifikasi sukses
+    function showSuccessAlert(message) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses',
+            text: message,
+            showConfirmButton: true,
+            timer: 2500
+        });
+    }
+    
+    // Tombol Simpan di Modal Tambah
+    $('#simpanData').on('click', function() {
+        // Logika untuk menyimpan data akan ada di sini
+        $('#modal-tambah').modal('hide'); // Tutup modal
+        showSuccessAlert('Data berhasil ditambahkan!');
+    });
+
+    // Tombol Perbarui di Modal Edit
+    $('#updateData').on('click', function() {
+        // Logika untuk memperbarui data akan ada di sini
+        $('#modal-edit').modal('hide'); // Tutup modal
+        showSuccessAlert('Data berhasil diperbarui!');
+    });
+
+    // Tombol Hapus di Modal Hapus
+    $('#hapusData').on('click', function() {
+        // Logika untuk menghapus data akan ada di sini
+        $('#modal-hapus').modal('hide'); // Tutup modal
+        showSuccessAlert('Data berhasil dihapus!');
+    });
+});
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Halaman User Timbangan</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <style>
+    /* Custom styles for responsiveness */
+    .action-buttons .btn {
+        margin-right: 5px;
+    }
+    .badge-tidak-tersedia {
+        background-color: #dc3545;
+        color: white;
+    }
+    @media (max-width: 768px) {
+      .main-header .btn {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.5rem;
+      }
+      .content-header h1 {
+        font-size: 1.5rem;
+      }
+      .card-tools {
+        width: 100%;
+        margin-top: 10px;
+      }
+       .card-tools .input-group {
+        width: 100% !important;
+      }
+    }
+  </style>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mr-2">
+          <a href="#" class="btn btn-primary"><i class="fas fa-rocket mr-2"></i>Masuk Ke Aplikasi Timbangan</a>
+      </li>
+      <!-- User Account Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-user-circle fa-lg"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">Admin User</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-user mr-2"></i> Profil
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-sign-out-alt mr-2"></i> Keluar
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <span class="brand-text font-weight-light">Weight Application</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-shield"></i>
+              <p>Peran User</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-users"></i>
+              <p>User Timbangan</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-hands-helping"></i>
+              <p>Serah Terima</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-balance-scale"></i>
+              <p>Timbangan</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-exchange-alt"></i>
+              <p>Ganti JO</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-flask"></i>
+              <p>Formula</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-boxes"></i>
+              <p>Kartu Stok</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>User Timbangan <span class="badge bg-secondary">212</span></h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">User Timbangan</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah">
+                  <i class="fas fa-plus"></i> Tambah
+                </button>
+
+                <div class="card-tools d-flex align-items-center">
+                    <select class="form-control-sm mr-2">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                    <div class="input-group" style="width: 250px;">
+                        <input type="text" name="table_search" class="form-control" placeholder="Cari berdasarkan nik, nama">
+                        <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>NIK</th>
+                      <th>NAMA USER</th>
+                      <th>PLANT</th>
+                      <th>PIC</th>
+                      <th>BAGIAN</th>
+                      <th>PROGRAM</th>
+                      <th>DEPARTMENT</th>
+                      <th>HAK</th>
+                      <th><i class="fas fa-cog"></i></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>MGF00100151</td>
+                      <td>Siti Khomariyah</td>
+                      <td>MGFI</td>
+                      <td>PIC_SERAH</td>
+                      <td>PREPARATION</td>
+                      <td>Desktop & Web</td>
+                      <td>RnD</td>
+                      <td>ADMIN</td>
+                      <td class="action-buttons">
+                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>MGF08090268</td>
+                      <td>Fitria Mardhani</td>
+                      <td>MGFI</td>
+                      <td><span class="badge badge-tidak-tersedia">Tidak Tersedia</span></td>
+                      <td><span class="badge badge-tidak-tersedia">Tidak Tersedia</span></td>
+                      <td><span class="badge badge-tidak-tersedia">Tidak Tersedia</span></td>
+                      <td>RnD</td>
+                      <td><span class="badge badge-tidak-tersedia">Tidak Tersedia</span></td>
+                      <td class="action-buttons">
+                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>MGF08110005</td>
+                      <td>Nur Yahya Ubet</td>
+                      <td>MGFI</td>
+                      <td>PIC_TERIMA</td>
+                      <td>QUALITY ASSURANCE</td>
+                      <td>Desktop</td>
+                      <td>QA</td>
+                      <td>USER</td>
+                       <td class="action-buttons">
+                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <p class="float-left">Showing 1 to 10 of 212 results</p>
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">...</a></li>
+                  <li class="page-item"><a class="page-link" href="#">22</a></li>
+                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Modal Tambah Data User -->
+  <div class="modal fade" id="modal-tambah">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tambah Data User</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"><label>NIK</label><input type="text" class="form-control"></div>
+                    <div class="form-group"><label>User</label><input type="text" class="form-control"></div>
+                    <div class="form-group"><label>Pilih PIC</label><select class="form-control"><option>-- Pilih PIC --</option></select></div>
+                    <div class="form-group"><label>Pilih Tempat</label><select class="form-control"><option>-- Pilih PT --</option></select></div>
+                    <div class="form-group"><label>Pilih Departemen</label><select class="form-control"><option>-- Pilih Departemen --</option></select></div>
+                    <div class="form-group"><label>Pilih Bagian</label><select class="form-control"><option>-- Pilih Bagian --</option></select></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group"><label>Pilih Program</label><select class="form-control"><option>-- Pilih Program --</option></select></div>
+                    <div class="form-group"><label>Pilih Hak</label><select class="form-control"><option>-- Pilih Hak --</option></select></div>
+                    <div class="form-group"><label>Password Login</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Konfirmasi Password Login</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Password Serah / Terima</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Konfirmasi Password Serah / Terima</label><input type="password" class="form-control"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+          <button type="button" class="btn btn-primary" id="simpanData"><i class="fas fa-save"></i> Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Data User -->
+    <div class="modal fade" id="modal-edit">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Perbarui Data User</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"><label>NIK</label><input type="text" class="form-control" value="MGF00100151" readonly></div>
+                    <div class="form-group"><label>User</label><input type="text" class="form-control" value="Siti Khomariyah"></div>
+                    <div class="form-group"><label>Pilih PIC</label><select class="form-control"><option>PIC Serah</option></select></div>
+                    <div class="form-group"><label>Pilih Tempat</label><select class="form-control"><option>PT. MGFI</option></select></div>
+                    <div class="form-group"><label>Pilih Departemen</label><select class="form-control"><option>RnD</option></select></div>
+                    <div class="form-group"><label>Pilih Bagian</label><select class="form-control"><option>PREPARATION</option></select></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group"><label>Pilih Program</label><select class="form-control"><option>Desktop & Web</option></select></div>
+                    <div class="form-group"><label>Pilih Hak</label><select class="form-control"><option>ADMIN</option></select></div>
+                    <div class="form-group"><label>Password Login</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Konfirmasi Password Login</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Password Serah / Terima</label><input type="password" class="form-control"></div>
+                    <div class="form-group"><label>Konfirmasi Password Serah / Terima</label><input type="password" class="form-control"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+          <button type="button" class="btn btn-primary" id="updateData"><i class="fas fa-save"></i> Perbarui</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Hapus Data User -->
+  <div class="modal fade" id="modal-hapus">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Hapus Data User</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p><strong>NIK:</strong> MGF00100151</p>
+            <p><strong>Nama:</strong> Siti Khomariyah</p>
+            <p><strong>PLANT:</strong> MGFI</p>
+            <p><strong>PIC:</strong> PIC_SERAH</p>
+            <p><strong>HAK:</strong> ADMIN</p>
+            <hr/>
+            <p>Apakah Anda yakin ingin menghapus data ini?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+          <button type="button" class="btn btn-danger" id="hapusData"><i class="fas fa-trash"></i> Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 3.2.0
+    </div>
+    <strong>Copyright &copy; 2025 <a href="#">Your Company</a>.</strong> All rights reserved.
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/js/adminlte.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$(function() {
+    // Fungsi untuk menampilkan notifikasi sukses
+    function showSuccessAlert(message) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses',
+            text: message,
+            showConfirmButton: true,
+            timer: 2500
+        });
+    }
+    
+    // Tombol Simpan di Modal Tambah
+    $('#simpanData').on('click', function() {
+        // Logika untuk menyimpan data akan ada di sini
+        $('#modal-tambah').modal('hide'); // Tutup modal
+        showSuccessAlert('Data berhasil ditambahkan!');
+    });
+
+    // Tombol Perbarui di Modal Edit
+    $('#updateData').on('click', function() {
+        // Logika untuk memperbarui data akan ada di sini
+        $('#modal-edit').modal('hide'); // Tutup modal
+        showSuccessAlert('Data berhasil diperbarui!');
+    });
+
+    // Tombol Hapus di Modal Hapus
+    $('#hapusData').on('click', function() {
+        // Logika untuk menghapus data akan ada di sini
+        $('#modal-hapus').modal('hide'); // Tutup modal
+        showSuccessAlert('Data berhasil dihapus!');
+    });
+});
+</script>
+
+</body>
+</html>

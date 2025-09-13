@@ -56,7 +56,7 @@ class GantiJoLivewire extends Component
         $idxTbs = $relevantKeys->pluck('IDX_TB')->unique()->toArray();
 
         $dataJo = JoTimbang::query()
-            ->from('jo_timbang as jo')
+            ->from('jo_timbang_temp as jo')
             ->selectRaw("
                 jo.Id,
                 tb_timbang.WAKTU,
@@ -107,7 +107,7 @@ class GantiJoLivewire extends Component
     public function edit($id)
     {
         $joTimbang = JoTimbang::query()
-            ->from('jo_timbang as jo')
+            ->from('jo_timbang_temp as jo')
             ->selectRaw("
             jo.Id,
             tb_timbang.WAKTU,

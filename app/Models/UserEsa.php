@@ -14,11 +14,10 @@ class UserEsa extends Authenticatable
 
     protected $table = 'user_esa';
 
-
-    public $timestamps = false;
-
     protected $primaryKey = 'Id';
 
+    public $timestamps = false;
+    
     protected $fillable = [
         'Id',
         'USER',
@@ -34,8 +33,11 @@ class UserEsa extends Authenticatable
         'DEPT',
         'ID_USER',
         'PICPASS',
-        'PIC_VERIFIKATOR'
+        'PIC_VERIFIKATOR',
+        'TUJUAN'
     ];
+
+    protected $casts = ['TUJUAN' => 'array'];
 
     public function userEsaRole()
     {

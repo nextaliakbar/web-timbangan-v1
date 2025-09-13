@@ -10,6 +10,7 @@
         </div>
         <div class="modal-body">
             <form wire:submit.prevent="update">
+                @csrf
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="uniqId">NO.BSTB</label>

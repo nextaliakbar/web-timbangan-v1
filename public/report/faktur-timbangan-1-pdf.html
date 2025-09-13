@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cetak Faktur Timbang</title>
+    <style>
+        /* Mengatur font dasar. @import aman digunakan untuk print via browser. */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Kontainer untuk faktur di layar */
+        .faktur-container {
+            border: 2px dashed #ccc;
+            width: 3cm;
+            height: 5cm;
+            padding: 2mm;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            
+            /* Menggunakan Flexbox untuk sebaran vertikal */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            font-size: 5pt;
+            line-height: 1.2;
+        }
+
+        /* Styling untuk setiap elemen di dalam faktur */
+        .header, .content, .weight, .jo-numbers-container {
+             width: 100%;
+        }
+
+        .product-name {
+            font-weight: bold;
+        }
+
+        .weight {
+            font-size: 10pt;
+            font-weight: 700;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 1mm 0;
+            margin: 1mm 0;
+        }
+
+        .jo-number {
+            font-size: 4.5pt;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+        }
+        
+        /* Tombol Cetak */
+        .print-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* --- CSS KHUSUS UNTUK PRINTING (REVISI BARU) --- */
+        @media print {
+            @page {
+                size: 3cm 5cm;
+                margin: 0;
+            }
+
+            /* Atur ulang body dan html agar tidak ada tinggi/margin sisa */
+            body, html {
+                margin: 0 !important;
+                padding: 0 !important;
+                height: 100%;
+                min-height: auto; /* Reset min-height dari mode layar */
+                background: none;
+            }
+
+            /* Sembunyikan semua elemen anak dari body */
+            body > * {
+                display: none;
+            }
+
+            /* Lalu, tampilkan HANYA container faktur */
+            .faktur-container {
+                display: flex !important; /* Paksa display flex agar layout internal tetap benar */
+                position: fixed; /* Gunakan fixed agar menempel di halaman */
+                top: 0;
+                left: 0;
+                
+                /* Hapus style layar */
+                border: none;
+                box-shadow: none;
+
+                /* Ukuran dan padding tetap sama */
+                width: 3cm;
+                height: 5cm;
+                padding: 2mm;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Elemen ini yang akan dicetak oleh browser -->
+    <div class="faktur-container">
+        <div class="header">
+            <div class="ref-id">MGFI/1/54/PROD-PRP/IX/25/69749</div>
+            <div class="datetime">2025-09-13 14:00</div>
+        </div>
+
+        <div class="content">
+            <div class="product-name">plastik HD hitam</div>
+            <div class="product-dims">0.3 x 60 x 80</div>
+            <div class="status">PRODUKSI -> PREPARATION</div>
+        </div>
+
+        <div class="weight">50.05 KG</div>
+
+        <div class="jo-numbers-container">
+            <div class="jo-number">JOD2011807-0076920</div>
+            <div class="jo-number">JOD2011807-0076920</div>
+            <div class="jo-number">JOD2011807-0076920</div>
+            <div class="jo-number">JOD2011807-0076920</div>
+            <div class="jo-number">JOD2011807-0076920</div>
+        </div>
+    </div>
+
+    <!-- Tombol untuk memicu dialog print browser -->
+    <button class="print-button" onclick="window.print()">Cetak Faktur</button>    
+</body>
+</html>
+

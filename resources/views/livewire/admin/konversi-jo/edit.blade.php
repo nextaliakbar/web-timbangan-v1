@@ -9,6 +9,7 @@
             </button>
         </div>
         <form wire:submit.prevent="update">
+        @csrf
         <div class="modal-body">
             <div class="form-group">
                 <label>UNIQ ID</label>

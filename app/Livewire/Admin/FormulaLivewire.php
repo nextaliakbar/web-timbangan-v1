@@ -39,10 +39,10 @@ class FormulaLivewire extends Component
     {
         $data = [
             'dataFormula' => TbTimbangVt::selectRaw("
-            tb_timbang_vt.ID, NO_LOT, ITEM_CODE, NAMA_BARANG, NO_DOK, BERAT_FILTER,
+            tb_timbang_vt_temp.ID, NO_LOT, ITEM_CODE, NAMA_BARANG, NO_DOK, BERAT_FILTER,
             BERAT_PER_LOT, BATCH, KET, WAKTU_TIMBANG
             ")
-            ->leftJoin('ms_barang', 'tb_timbang_vt.ITEM_CODE', '=', 'ms_barang.id_barang')
+            ->leftJoin('ms_barang', 'tb_timbang_vt_temp.ITEM_CODE', '=', 'ms_barang.id_barang')
             ->whereNotNull('SERAH')
             ->whereNotNull('VERIFIKATOR')
             ->where('PLANT', '=', $this->plant)
@@ -60,11 +60,11 @@ class FormulaLivewire extends Component
     private function getData($id)
     {
         $data = TbTimbangVt::selectRaw("
-        tb_timbang_vt.ID, NO_LOT, ITEM_CODE, NAMA_BARANG, NO_DOK, BERAT_FILTER,
+        tb_timbang_vt_temp.ID, NO_LOT, ITEM_CODE, NAMA_BARANG, NO_DOK, BERAT_FILTER,
         BERAT_PER_LOT, BATCH, KET, WAKTU_TIMBANG
         ")
-        ->leftJoin('ms_barang', 'tb_timbang_vt.ITEM_CODE', '=', 'ms_barang.id_barang')
-        ->where('tb_timbang_vt.ID', '=', $id)
+        ->leftJoin('ms_barang', 'tb_timbang_vt_temp.ITEM_CODE', '=', 'ms_barang.id_barang')
+        ->where('tb_timbang_vt_temp.ID', '=', $id)
         ->first();
 
         $this->idTimbang = $data->IDT;
@@ -142,34 +142,34 @@ class FormulaLivewire extends Component
             date_format(WAKTU_PROD, '%Y-%m-%d') as WAKTU_PROD,
             SHIFT_PROD,
             CASE
-                WHEN tb_timbang_vt.PLANT = '1' THEN 'UNIMOS'
+                WHEN tb_timbang_vt_temp.PLANT = '1' THEN 'UNIMOS'
                 ELSE 'MGFI'
             END AS TEMPAT,
             VERIFIKATOR,
             user_esa.NAMA as NAMA_USER
         ")
-        ->leftJoin('ms_barang', 'tb_timbang_vt.ITEM_CODE', '=', 'ms_barang.id_barang')
-        ->leftJoin('user_esa', 'tb_timbang_vt.VERIFIKATOR', '=', 'user_esa.USER')
-        ->where('tb_timbang_vt.NO_DOK', '=', $noDok)
+        ->leftJoin('ms_barang', 'tb_timbang_vt_temp.ITEM_CODE', '=', 'ms_barang.id_barang')
+        ->leftJoin('user_esa', 'tb_timbang_vt_temp.VERIFIKATOR', '=', 'user_esa.USER')
+        ->where('tb_timbang_vt_temp.NO_DOK', '=', $noDok)
         ->first();
 
         $dataTables = TbTimbangVt::query()
         ->select(
             'ms_barang.NAMA_BARANG',
-            'tb_timbang_vt.BATCH',
-            'tb_timbang_vt.NO_LOT',
-            'tb_timbang_vt.BERAT_PER_LOT',
+            'tb_timbang_vt_temp.BATCH',
+            'tb_timbang_vt_temp.NO_LOT',
+            'tb_timbang_vt_temp.BERAT_PER_LOT',
             'ue.NAMA as NAMA_PENIMBANG',
             'u.NAMA as NAMA_VERIFIKATOR',
-            'tb_timbang_vt.KET'
+            'tb_timbang_vt_temp.KET'
         )
-        ->leftJoin('ms_barang', 'tb_timbang_vt.ITEM_CODE', '=', 'ms_barang.id_barang')
-        ->leftJoin('user_esa as ue', 'tb_timbang_vt.SERAH', '=', 'ue.USER')
-        ->leftJoin('user_esa as u', 'tb_timbang_vt.VERIFIKATOR', '=', 'u.USER')
-        ->where('tb_timbang_vt.NO_DOK', $noDok)
+        ->leftJoin('ms_barang', 'tb_timbang_vt_temp.ITEM_CODE', '=', 'ms_barang.id_barang')
+        ->leftJoin('user_esa as ue', 'tb_timbang_vt_temp.SERAH', '=', 'ue.USER')
+        ->leftJoin('user_esa as u', 'tb_timbang_vt_temp.VERIFIKATOR', '=', 'u.USER')
+        ->where('tb_timbang_vt_temp.NO_DOK', $noDok)
         ->orderBy('ms_barang.NAMA_BARANG', 'ASC')
-        ->orderBy('tb_timbang_vt.BATCH', 'asc')
-        ->orderBy('tb_timbang_vt.id', 'asc')
+        ->orderBy('tb_timbang_vt_temp.BATCH', 'asc')
+        ->orderBy('tb_timbang_vt_temp.id', 'asc')
         ->get();
 
         $pdfContent = Pdf::loadView('livewire.admin.formula.report-formula-pdf', [

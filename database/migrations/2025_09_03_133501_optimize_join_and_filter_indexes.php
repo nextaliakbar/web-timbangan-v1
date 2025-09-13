@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::table('jo_timbang', function (Blueprint $table) {
-        //     $table->index('UNIQ_ID');
-        //     $table->index('IDX_TB');
-        //     $table->index('NO_JO');
-        // });
+        Schema::table('jo_timbang_temp', function (Blueprint $table) {
+            $table->index('UNIQ_ID');
+            $table->index('IDX_TB');
+            $table->index('NO_JO');
+        });
 
-        // Schema::table('tb_timbang_temp', function (Blueprint $table) {
-        //     $table->index('UNIQ_ID');
-        //     $table->index('IDX_TB');
-        //     $table->index('WAKTU');
-        //     $table->index('PLANT');
-        //     $table->index('ID_BARANG');
-        // });
+        Schema::table('tb_timbang_temp', function (Blueprint $table) {
+            $table->index('UNIQ_ID');
+            $table->index('IDX_TB');
+            $table->index('WAKTU');
+            $table->index('PLANT');
+            $table->index('ID_BARANG');
+        });
         
         // Schema::table('stf_status', function (Blueprint $table) {
         //     $table->index('NO_JO');

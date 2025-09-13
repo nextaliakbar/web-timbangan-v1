@@ -13,6 +13,7 @@
             </button>
         </div>
         <form wire:submit.prevent="update">
+        @csrf
         <div class="modal-body">
             <div class="row">
                 <div class="col-md-6">

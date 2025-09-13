@@ -16,7 +16,7 @@ return new class extends Migration
         //     $table->index('NAMA_BARANG');
         // });
 
-        // DB::statement('CREATE INDEX tb_timbang_temp_nama_barang_index ON tb_timbang_temp(NAMA_BARANG(255))');
+        DB::statement('CREATE INDEX tb_timbang_temp_nama_barang_index ON tb_timbang_temp(NAMA_BARANG(255))');
     }
 
     /**
@@ -27,6 +27,6 @@ return new class extends Migration
         // Schema::table('tb_timbang_temp', function (Blueprint $table) {
         //     $table->dropIndex('tb_timbang_temp_nama_barang_index');
         // });
-        // DB::statement('DROP INDEX tb_timbang_temp_nama_barang_index ON tb_timbang_temp');
+        DB::statement('DROP INDEX tb_timbang_temp_nama_barang_index ON tb_timbang_temp');
     }
 };

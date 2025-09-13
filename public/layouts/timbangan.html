@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Halaman Timbangan</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <style>
+    .filter-bar .form-control, .filter-bar .input-group {
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    @media (min-width: 992px) {
+      .filter-bar .form-control, .filter-bar .input-group {
+        margin-bottom: 0;
+      }
+    }
+    .action-buttons .btn {
+        margin-right: 5px;
+    }
+  </style>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mr-2">
+          <a href="#" class="btn btn-primary"><i class="fas fa-rocket mr-2"></i>Masuk Ke Aplikasi Timbangan</a>
+      </li>
+      <!-- User Account Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-user-circle fa-lg"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">Admin User</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-user mr-2"></i> Profil
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-sign-out-alt mr-2"></i> Keluar
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <span class="brand-text font-weight-light">Weight Application</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-user-shield"></i><p>Peran User</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-users"></i><p>User Timbangan</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-hands-helping"></i><p>Serah Terima</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link active"><i class="nav-icon fas fa-balance-scale"></i><p>Timbangan</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-exchange-alt"></i><p>Ganti JO</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-flask"></i><p>Formula</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-boxes"></i><p>Kartu Stok</p></a></li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Laporan Hasil Input di Lapangan <span class="badge bg-primary">Plant UNIMOS</span></h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Timbangan</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex flex-wrap align-items-center mb-3">
+                    <ul class="nav nav-pills mr-auto p-2">
+                        <li class="nav-item"><a class="nav-link active" href="#unimos" data-toggle="tab">UNIMOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#mgfi" data-toggle="tab">MGFI</a></li>
+                    </ul>
+                </div>
+
+                <div class="d-flex flex-wrap align-items-center mb-3 filter-bar">
+                    <input type="text" class="form-control form-control-sm" style="width: 150px;" placeholder="Input No.SuratJalan">
+                    <select class="form-control form-control-sm" style="width: 150px;"><option>Semua</option></select>
+                    <select class="form-control form-control-sm" style="width: 150px;"><option>3 Bulan Terakhir</option></select>
+                    <select class="form-control form-control-sm" style="width: 70px;"><option>10</option><option>25</option><option>50</option></select>
+                    <div class="input-group input-group-sm ml-auto" style="width: 250px;">
+                        <input type="text" name="table_search" class="form-control" placeholder="Cari berdasarkan uniq id, nama barang">
+                        <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                 
+                <div class="mb-3">
+                    <strong>Daftar BSTB Belum di STF Kan <span class="badge badge-info">10610</span></strong>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                        <th>#</th>
+                        <th>ID</th>
+                        <th>WAKTU</th>
+                        <th>ID BARANG</th>
+                        <th>NAMA BARANG</th>
+                        <th>BERAT</th>
+                        <th>UNIQ ID</th>
+                        <th><i class="fas fa-print"></i></th>
+                        <th><i class="fas fa-cog"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>1269894</td>
+                            <td>2025-08-15 14:30:40</td>
+                            <td>03030903040043</td>
+                            <td>Bs Packing Ws Majoroll</td>
+                            <td>11.74 KG</td>
+                            <td>UNIMOS/L/60/WFR-PRP/VII/(25.)11031</td>
+                            <td><button class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i></button></td>
+                            <td class="action-buttons">
+                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>1269893</td>
+                            <td>2025-08-15 14:29:09</td>
+                            <td>03030903040043</td>
+                            <td>Bs Packing Ws Majoroll</td>
+                            <td>13.83 KG</td>
+                            <td>UNIMOS/L/60/WFR-PRP/VII/(25.)11031</td>
+                            <td><button class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i></button></td>
+                            <td class="action-buttons">
+                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <p>Showing 1 to 10 of 10610 results</p>
+                    <ul class="pagination pagination-sm m-0">
+                        <li class="page-item"><a class="page-link" href="#">«</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">...</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1061</a></li>
+                        <li class="page-item"><a class="page-link" href="#">»</a></li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Modal Edit -->
+  <div class="modal fade" id="modal-edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h4 class="modal-title">Perbarui Data Timbangan</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>ID</label><input type="text" class="form-control" value="1269894" readonly></div>
+                <div class="form-group"><label>ID Barang</label><input type="text" class="form-control" value="03030903040043"></div>
+                <div class="form-group"><label>Nama Barang</label><input type="text" class="form-control" value="Bs Packing Ws Majoroll"></div>
+                <div class="form-group"><label>Berat (KG)</label><input type="number" step="0.01" class="form-control" value="11.74"></div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="updateData">Perbarui</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- Modal Hapus -->
+  <div class="modal fade" id="modal-hapus">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h4 class="modal-title">Hapus Data Timbangan</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+            <div class="modal-body">
+                <p>Anda yakin ingin menghapus data ini?</p>
+                <p><strong>ID:</strong> 1269894</p>
+                <p><strong>Nama Barang:</strong> Bs Packing Ws Majoroll</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger" id="hapusData">Hapus</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block"><b>Version</b> 3.2.0</div>
+    <strong>Copyright &copy; 2025 <a href="#">Your Company</a>.</strong> All rights reserved.
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/js/adminlte.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$(function() {
+    function showSuccessAlert(message) {
+        Swal.fire({ icon: 'success', title: 'Sukses', text: message, timer: 2500, showConfirmButton: true });
+    }
+
+    $('#updateData').on('click', function() {
+        $('#modal-edit').modal('hide');
+        showSuccessAlert('Data berhasil diperbarui!');
+    });
+
+    $('#hapusData').on('click', function() {
+        $('#modal-hapus').modal('hide');
+        showSuccessAlert('Data berhasil dihapus!');
+    });
+});
+</script>
+
+</body>
+</html>

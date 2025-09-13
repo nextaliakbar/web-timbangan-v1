@@ -88,7 +88,7 @@ class KartuStokLivewire extends Component
                 tb_timbang.SHIFT_PRODUKSI,
                 tb_timbang.SHIFT,
                 MAX(DATE(tb_timbang.WAKTU)) AS WKT")
-            ->leftJoin('push_daftar_barang as push_daftar_brg', 'tb_timbang.ID_BARANG', '=', 'push_daftar_brg.ID_SUNFISH')
+            ->leftJoin('push_daftar_barang_temp as push_daftar_brg', 'tb_timbang.ID_BARANG', '=', 'push_daftar_brg.ID_SUNFISH')
             ->when($this->shifts, function($query) {
                 $query->whereIn('tb_timbang.SHIFT_PRODUKSI',  $this->shifts);
             })
@@ -112,7 +112,7 @@ class KartuStokLivewire extends Component
             ->from('tb_timbang_temp as tb_timbang')
             ->selectRaw("*, (BERAT_FILTER * QTY) as BF,
                 COALESCE(NULLIF(tb_timbang.PCS, ''), '0') as JUDUL")
-            ->leftJoin('push_daftar_barang as push_daftar_brg', 'tb_timbang.ID_BARANG', '=', 'push_daftar_brg.ID_SUNFISH')
+            ->leftJoin('push_daftar_barang_temp as push_daftar_brg', 'tb_timbang.ID_BARANG', '=', 'push_daftar_brg.ID_SUNFISH')
             ->when($this->shifts, function($query) {
                 $query->whereIn('tb_timbang.SHIFT_PRODUKSI', $this->shifts);
             })

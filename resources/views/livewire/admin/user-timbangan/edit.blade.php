@@ -10,6 +10,7 @@
         </div>
         <div class="modal-body">
             <form wire:submit.prevent="update">
+                @csrf
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -156,6 +157,15 @@
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div wire:ignore class="col-md-12">
+                        <div class="form-group">
+                            <label>Tentukan Tujuan User</label>
+                                <select id="select-tujuan-edit" multiple="multiple" style="width: 100%;">
+                            </select>
                         </div>
                     </div>
                 </div>

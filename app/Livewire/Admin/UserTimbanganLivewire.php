@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\DariKe;
 use App\Models\UserEsa;
 use App\Models\UserRole;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,6 +21,9 @@ class UserTimbanganLivewire extends Component
     public $search, $nik, $user, $plant, $pic, $departemen, $bagian, $tempat, 
     $program, $hak, $userEsaNik, $passwordLogin, $konfirmasiPasswordLogin,
     $passwordSerahTerima, $konfirmasiPasswordSerahTerima;
+    public $dataDariKe = [];
+
+    public $tujuan = [];
 
     private $isEditModal = false;
 
@@ -27,6 +32,7 @@ class UserTimbanganLivewire extends Component
     public $departementOptions = [];
 
     public $sectionOptions = [];
+
 
     protected $options = [
         'MGFI' => [
@@ -64,11 +70,24 @@ class UserTimbanganLivewire extends Component
         $this->resetPage();
     }
 
-
     public function updatedTempat($value)
     {
         $this->departementOptions = isset($this->options[$value]) ? array_keys($this->options[$value]) : [];
         $this->reset(['departemen', 'bagian', 'sectionOptions']);
+        
+        $plant = $this->tempat == 'UNIMOS' ? 2 : ($this->tempat == 'MGFI' ? 7 : 0);
+        
+        $dataDariKe = DariKe::where('PLANT', '=', $plant)
+        ->get();
+
+        $this->dispatch('loadDataDariKeCreate', data: $dataDariKe);
+
+        if($this->tujuan) {
+            $formatedDataTujuan = array_map(function($code) {
+                return "($code)";
+            }, $this->tujuan);
+            $this->dispatch('loadDataDariKeEdit', data: $dataDariKe, destination: $formatedDataTujuan);
+        }
     }
 
     public function updatedDepartemen($value)
@@ -93,7 +112,6 @@ class UserTimbanganLivewire extends Component
                 ->orWhere('NAMA', 'like', '%' . $this->search . '%');
             })
             ->paginate($this->paginate ?? 10),
-
             'userRoles' => UserRole::select('role')->get()
         ];
         
@@ -115,7 +133,8 @@ class UserTimbanganLivewire extends Component
             'passwordLogin',
             'konfirmasiPasswordLogin',
             'passwordSerahTerima',
-            'konfirmasiPasswordSerahTerima'
+            'konfirmasiPasswordSerahTerima',
+            'tujuan'
         ]);
     }
 
@@ -128,7 +147,17 @@ class UserTimbanganLivewire extends Component
     {
         $this->isEditModal = false;
 
-        $this->validate();
+        try {
+            $this->validate();
+        } catch(ValidationException $ex) {
+            if($ex->validator->errors()->has('tujuan')) {
+                $errorMessage = $ex->validator->errors()->first('tujuan');
+
+                $this->dispatch('alertDestinationError', title: 'Gagal', text: $errorMessage, icon: 'error');
+            }
+
+            throw $ex;
+        }
 
         $akses = match($this->program) {
             'Desktop' => 1,
@@ -138,6 +167,10 @@ class UserTimbanganLivewire extends Component
         
         $id = UserEsa::max('Id');
         $id += 1;
+
+        $formatedDataTujuan = array_map(function($code) {
+            return substr($code, 1, -1);   
+        }, $this->tujuan);
 
         $userEsa = [
             'Id' => $id,
@@ -149,8 +182,9 @@ class UserTimbanganLivewire extends Component
             'BAGIAN' => $this->bagian,
             'AKSES' => $akses,
             'HAK' => $this->hak,
-            'PASS' => Hash::make($this->passwordLogin),
-            'PICPASS' => Hash::make($this->passwordSerahTerima)
+            'PASS' => hash('sha256',$this->passwordLogin),
+            'PICPASS' => hash('sha256',$this->passwordSerahTerima),
+            'TUJUAN' => $formatedDataTujuan
         ];
 
         $create = UserEsa::create($userEsa);
@@ -197,6 +231,20 @@ class UserTimbanganLivewire extends Component
         };
 
         $this->hak = $userEsa->HAK;
+
+        $plant = $this->tempat == 'UNIMOS' ? 2 : ($this->tempat == 'MGFI' ? 7 : 0);
+
+        $dataDariKe = DariKe::select('KODE', 'DARI_KE')
+        ->where('PLANT', '=', $plant)
+        ->get();
+
+        $formatedDataTujuan = array_map(function($code) {
+            return "($code)";
+        }, $userEsa->TUJUAN);
+
+        $this->dispatch('loadDataDariKeEdit', data: $dataDariKe, destination: $formatedDataTujuan);
+
+        $this->tujuan = $userEsa->TUJUAN;
         $this->userEsaNik = $userEsa->USER;
     }
 
@@ -209,7 +257,8 @@ class UserTimbanganLivewire extends Component
             'departemen' => 'required',
             // 'bagian' => 'required',
             'program' => 'required',
-            'hak' => 'required'
+            'hak' => 'required',
+            'tujuan' => 'required|array'
         ];
 
         if($this->isEditModal) {
@@ -251,7 +300,8 @@ class UserTimbanganLivewire extends Component
             'konfirmasiPasswordLogin.same' => 'Konfirmasi password login tidak cocok',
             'passwordSerahTerima.required' => 'Password serah terima tidak boleh kosong',
             'konfirmasiPasswordSerahTerima.required' => 'Konfirmasi password serah terima tidak boleh kosong',
-            'konfirmasiPasswordSerahTerima.same' => 'Konfirmasi password serah terima tidak cocok'
+            'konfirmasiPasswordSerahTerima.same' => 'Konfirmasi password serah terima tidak cocok',
+            'tujuan.required' => 'Tentukan minimal 1 pengaturan tujuan user'
         ];
     }
 
@@ -259,13 +309,27 @@ class UserTimbanganLivewire extends Component
     {
         $this->isEditModal = true;
 
-        $this->validate();
+        try {
+            $this->validate();
+        } catch(ValidationException $ex) {
+            if($ex->validator->errors()->has('tujuan')) {
+                $errorMessage = $ex->validator->errors()->first('tujuan');
+
+                $this->dispatch('alertDestinationError', title: 'Gagal', text: $errorMessage, icon: 'error');
+            }
+
+            throw $ex;
+        }
         
         $akses = match($this->program) {
             'Desktop' => 1,
             'Web' => 2,
             'Desktop & Web' => 3
         };
+
+        $formatedDataTujuan = array_map(function($code) {
+            return substr($code, 1, -1);   
+        }, $this->tujuan);
 
         $dataToUpdate = [
             'NAMA' => $this->user,
@@ -274,7 +338,8 @@ class UserTimbanganLivewire extends Component
             'DEPT' => $this->departemen,
             'BAGIAN' => $this->bagian,
             'AKSES' => $akses,
-            'HAK' => $this->hak
+            'HAK' => $this->hak,
+            'TUJUAN' => $formatedDataTujuan
         ];
 
         if(filled($this->passwordLogin)) {

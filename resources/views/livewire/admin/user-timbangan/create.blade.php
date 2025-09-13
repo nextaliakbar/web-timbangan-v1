@@ -9,6 +9,7 @@
             </button>
         </div>
         <form wire:submit.prevent="store">
+            @csrf
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -47,7 +48,7 @@
                         <div class="form-group">
                             <label>Pilih Tempat</label>
                             <select wire:model.live="tempat" class="form-control
-                            @error('tempat') is-invalid @enderror"
+                            @error('tempat') is-invalid @enderror" id="tempat"
                             >
                                 <option value="" selected>-- Pilih PT --</option>
                                 <option value="MGFI">PT. MGFI</option>
@@ -158,6 +159,15 @@
                             @error('konfirmasiPasswordSerahTerima')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div wire:ignore class="col-md-12">
+                        <div class="form-group">
+                            <label>Tentukan Tujuan User</label>
+                                <select id="select-tujuan-create" multiple="multiple" style="width: 100%;">
+                            </select>
                         </div>
                     </div>
                 </div>

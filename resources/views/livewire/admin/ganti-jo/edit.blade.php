@@ -9,6 +9,7 @@
             </button>
         </div>
         <form wire:submit.prevent="mainUpdate">
+        @csrf
         <div class="modal-body">
             <div class="form-group">
                 <select wire:model="jenisEdit" class="form-control">

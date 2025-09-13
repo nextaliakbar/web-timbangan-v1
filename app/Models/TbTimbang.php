@@ -9,11 +9,9 @@ use Illuminate\Notifications\Notifiable;
 class TbTimbang extends Model
 {
     use HasFactory, Notifiable;
-
     protected $table = 'tb_timbang_temp';
-
+    protected $primaryKey = "ID";
     public $timestamps = false;
-
     protected $fillable = [
         'ID', 'ID_BARANG', 'UNIQ_ID',
         'BERAT', 'BERAT_FILTER', 'QTY',
@@ -26,4 +24,5 @@ class TbTimbang extends Model
     ];
 
     protected $casts = ['WAKTU' => 'datetime'];
+    
 }

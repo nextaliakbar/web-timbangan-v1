@@ -15,6 +15,20 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+
+      <li class="nav-item mr-2">
+        <button class="btn btn-md btn-primary" data-toggle="modal" data-target="#weightModal">
+          <i class="fas fa-weight mr-2"></i>
+          Masuk Ke Aplikasi Timbangan
+        </button>
+      </li>
+
+      <li class="nav-item">
+          <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#logoutModal">
+              <i class="fas fa-sign-out-alt mr-1"></i>Keluar
+          </button>
+      </li>
+
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
           <img src="{{asset('assets/image/profile-picture.png')}}" class="user-image img-circle" alt="User Image">
@@ -28,19 +42,9 @@
             </p>
             <h5><span class="badge badge-success p-2">{{auth()->guard('admin')->user()->userEsaRole->role}}</span></h5>
           </li>
-
-          <!-- Menu Footer-->
-          <li class="user-footer">
-            <a wire:navigate href="" class="btn btn-default btn-flat">
-              <i class="fas fa-user mr-1"></i>Profil
-            </a>
-            <button type="button" class="btn btn-danger btn-flat float-right" data-toggle="modal" data-target="#logoutModal">
-              <i class="fas fa-sign-out-alt mr-1"></i>Keluar
-            </button>
-          </li>
-
         </ul>
       </li>
+      
     </ul>
   </nav>
   <div wire:ignore.self class="modal fade" id="logoutModal">
@@ -58,6 +62,21 @@
         <!-- /.modal-content -->
       </div>
       <!-- /.modal-dialog -->
-    </div>
+  </div>
   <!-- /.navbar -->
+
+  @include('livewire.auth.weight-modal')
+
+  @script
+    <script>
+      $wire.on('errorModal', (evt)=> {
+          Swal.fire({
+              title: evt.title,
+              text: evt.text,
+              icon: evt.icon,
+              heightAuto: false
+          });
+      });
+    </script>
+  @endscript
 </div>
